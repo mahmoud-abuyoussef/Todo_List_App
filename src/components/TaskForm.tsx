@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
+import { useContext, useState } from "react";
+import { TasksContext } from "../context/tasksContext";
 
 interface Task {
   id: string;
@@ -18,6 +18,7 @@ interface TaskFormProps {
 }
 
 export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
+  const { showToast } = useContext(TasksContext);
   const [formInputs, setFormInputs] = useState<TaskForm>({ title: "", description: "" });
 
   function addTask() {
@@ -29,7 +30,7 @@ export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
 
     setFormInputs({ title: "", description: "" });
 
-    toast.success("Task Added Success");
+    showToast("Task Added Success");
   }
 
   return (

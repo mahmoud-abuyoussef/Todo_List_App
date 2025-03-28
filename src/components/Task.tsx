@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { FaTrashCan } from "react-icons/fa6";
-import { TasksContext } from "../context/tasksContext";
+import { useContext, useState } from "react";
 import UpdateTaskModal from "./UpdateTaskModal";
-import { toast } from "react-toastify";
 import DeleteTaskModal from "./DeleteTaskModal";
+import { TasksContext } from "../context/tasksContext";
+
 interface Task {
   id: string;
   title: string;
@@ -15,7 +15,7 @@ interface Task {
 }
 
 export default function Task({ task }: { task: Task }) {
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { tasks, setTasks, showToast } = useContext(TasksContext);
 
   function handelCheckCompleteTask(id: string) {
     const updatedTasks = tasks.map((task: { id: string; title: string; description: string; isCompleted: boolean; dateAndTime: string }) => {
@@ -29,9 +29,9 @@ export default function Task({ task }: { task: Task }) {
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
     if (task.isCompleted) {
-      toast.success("Task Complete");
+      showToast("Task Complete");
     } else {
-      toast.warn("Task Uncomplete");
+      showToast("Task Uncomplete");
     }
   }
 

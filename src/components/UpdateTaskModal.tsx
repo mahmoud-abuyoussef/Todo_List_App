@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import { useContext, useState } from "react";
 import { TasksContext } from "../context/tasksContext";
 
@@ -8,7 +7,7 @@ interface TaskForm {
 }
 
 export default function UpdateTaskModal({ task, setIsOpen }: { task: { id: string; title: string; description: string }; setIsOpen: (isOpen: boolean) => void }) {
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { tasks, setTasks, showToast } = useContext(TasksContext);
 
   const [formInputs, setFormInputs] = useState<TaskForm>({ title: task.title, description: task.description });
 
@@ -26,10 +25,11 @@ export default function UpdateTaskModal({ task, setIsOpen }: { task: { id: strin
 
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
-    toast.success("Task Updated Success");
+    showToast("Task Updated Success");
 
     setIsOpen(false);
   }
+
   return (
     <section>
       <div className="container m-auto">

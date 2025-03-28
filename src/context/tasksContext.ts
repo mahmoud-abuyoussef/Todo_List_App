@@ -9,11 +9,17 @@ interface Task {
 }
 
 interface TasksContextType {
+  database: Task[];
   tasks: Task[];
   setTasks: (tasks: Task[]) => void;
+  setDatabase: (tasks: []) => void;
+  showToast: (message: string) => void;
 }
 
 export const TasksContext = createContext<TasksContextType>({
   tasks: [],
+  database: [],
   setTasks: () => {},
+  setDatabase: () => {},
+  showToast: () => {},
 });
