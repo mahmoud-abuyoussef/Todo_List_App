@@ -10,8 +10,6 @@ export default function SignUp({ database, setDatabase }) {
     password: "",
   });
 
-  console.log(database);
-
   function signUp() {
     if (formData.email !== "" && formData.password !== "" && formData.password.length >= 8) {
       const newUser = [

@@ -16,13 +16,21 @@ export default function Home({ database, setDatabase }) {
     }
   }, [navigate]);
 
-  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks") || "[]"));
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    database.map((user) => {
+      if (user.id === localStorage.getItem("userId")) {
+        setTasks(user.tasks);
+      }
+    });
+  }, [database]);
 
   const [filter, setFilter] = useState("");
 
-  const completedTasks = tasks.filter((task: { isCompleted: boolean }) => task.isCompleted);
+  const completedTasks = tasks?.filter((task: { isCompleted: boolean }) => task.isCompleted);
 
-  const nonCompletedTasks = tasks.filter((task: { isCompleted: boolean }) => !task.isCompleted);
+  const nonCompletedTasks = tasks?.filter((task: { isCompleted: boolean }) => !task.isCompleted);
 
   let tasksRenderd = tasks;
 
@@ -43,8 +51,9 @@ export default function Home({ database, setDatabase }) {
       tasksRenderd = tasks;
       showToast("Get All Tasks Success");
   }
+
   return (
-    <TasksContext.Provider value={{ database, setDatabase, showToast }}>
+    <TasksContext.Provider value={{ tasks, setTasks, database, setDatabase, showToast }}>
       <TaskForm tasks={tasks} setTasks={setTasks} />
 
       <div className="container flex justify-center gap-5 mt-5 m-auto">

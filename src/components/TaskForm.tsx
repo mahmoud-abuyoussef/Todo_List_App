@@ -2,23 +2,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useContext, useState } from "react";
 import { TasksContext } from "../context/tasksContext";
 
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  isCompleted: boolean;
-}
 interface TaskForm {
   title: string;
   description: string;
 }
-interface TaskFormProps {
-  tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-}
 
-export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
-  const { showToast } = useContext(TasksContext);
+export default function TaskForm() {
+  const { showToast, setTasks, tasks, database, setDatabase } = useContext(TasksContext);
   const [formInputs, setFormInputs] = useState<TaskForm>({ title: "", description: "" });
 
   function addTask() {
@@ -26,7 +16,16 @@ export default function TaskForm({ tasks, setTasks }: TaskFormProps) {
 
     setTasks(newTasks);
 
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
+    const updatedDatabase = database.map((user) => {
+      if (user.id === localStorage.getItem("userId")) {
+        user.tasks = newTasks;
+      }
+      return user;
+    });
+
+    setDatabase(updatedDatabase);
+
+    localStorage.setItem("database", JSON.stringify(updatedDatabase));
 
     setFormInputs({ title: "", description: "" });
 

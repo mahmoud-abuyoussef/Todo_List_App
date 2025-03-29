@@ -15,7 +15,7 @@ interface Task {
 }
 
 export default function Task({ task }: { task: Task }) {
-  const { tasks, setTasks, showToast } = useContext(TasksContext);
+  const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
 
   function handelCheckCompleteTask(id: string) {
     const updatedTasks = tasks.map((task: { id: string; title: string; description: string; isCompleted: boolean; dateAndTime: string }) => {
@@ -24,9 +24,19 @@ export default function Task({ task }: { task: Task }) {
       }
       return task;
     });
+
     setTasks(updatedTasks);
 
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    const updatedDatabase = database.map((user) => {
+      if (user.id === localStorage.getItem("userId")) {
+        user.tasks = updatedTasks;
+      }
+      return user;
+    });
+
+    setDatabase(updatedDatabase);
+
+    localStorage.setItem("database", JSON.stringify(updatedDatabase));
 
     if (task.isCompleted) {
       showToast("Task Complete");

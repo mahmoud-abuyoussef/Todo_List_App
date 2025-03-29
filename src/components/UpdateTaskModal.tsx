@@ -7,7 +7,7 @@ interface TaskForm {
 }
 
 export default function UpdateTaskModal({ task, setIsOpen }: { task: { id: string; title: string; description: string }; setIsOpen: (isOpen: boolean) => void }) {
-  const { tasks, setTasks, showToast } = useContext(TasksContext);
+  const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
 
   const [formInputs, setFormInputs] = useState<TaskForm>({ title: task.title, description: task.description });
 
@@ -23,7 +23,16 @@ export default function UpdateTaskModal({ task, setIsOpen }: { task: { id: strin
 
     setTasks(updatedTasks);
 
-    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    const updatedDatabase = database.map((user) => {
+      if (user.id === localStorage.getItem("userId")) {
+        user.tasks = updatedTasks;
+      }
+      return user;
+    });
+
+    setDatabase(updatedDatabase);
+
+    localStorage.setItem("database", JSON.stringify(updatedDatabase));
 
     showToast("Task Updated Success");
 

@@ -11,7 +11,7 @@ export default function Login() {
 
   function login() {
     if (formData.email !== "" && formData.password !== "" && formData.password.length >= 8) {
-      const database = JSON.parse(localStorage.getItem("database"));
+      const database = JSON.parse(localStorage.getItem("database") || "[]");
 
       database.filter((user) => {
         if (user.email === formData.email && user.password === formData.password) {
