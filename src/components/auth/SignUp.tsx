@@ -11,7 +11,13 @@ export default function SignUp({ database, setDatabase }) {
   });
 
   function signUp() {
-    if (formData.email !== "" && formData.password !== "" && formData.password.length >= 8) {
+    const isUserExist = database.some((user) => {
+      if (user.email === formData.email) {
+        return true;
+      }
+    });
+
+    if (!isUserExist) {
       const newUser = [
         ...database,
         {
@@ -49,7 +55,14 @@ export default function SignUp({ database, setDatabase }) {
         <label className="block mb-3 font-bold text-lg" htmlFor="password">
           Password
         </label>
-        <input onChange={(e) => setFormData({ ...formData, password: e.target.value })} className="block mb-3 border outline-none p-3 w-full rounded" type="password" id="password" required />
+        <input
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          className="block mb-3 border outline-none p-3 w-full rounded"
+          minLength={8}
+          type="password"
+          id="password"
+          required
+        />
 
         <button type="submit" className="bg-blue-500 cursor-pointer text-white p-3 rounded w-full mt-5">
           Sign Up
