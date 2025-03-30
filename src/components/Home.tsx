@@ -5,7 +5,21 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { TasksContext } from "../context/tasksContext";
 
-export default function Home({ database, setDatabase }) {
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dateAndTime: string;
+  isCompleted: boolean;
+}
+
+export default function Home({
+  database,
+  setDatabase,
+}: {
+  database: { id: string; email: string; password: string; tasks: Task[] }[];
+  setDatabase: (newDatabase: { id: string; email: string; password: string; tasks: Task[] }[]) => void;
+}) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +30,7 @@ export default function Home({ database, setDatabase }) {
     }
   }, [navigate]);
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     database.map((user) => {
@@ -54,7 +68,7 @@ export default function Home({ database, setDatabase }) {
 
   return (
     <TasksContext.Provider value={{ tasks, setTasks, database, setDatabase, showToast }}>
-      <TaskForm tasks={tasks} setTasks={setTasks} />
+      <TaskForm />
 
       <div className="container flex justify-center gap-5 mt-5 m-auto">
         <button className="cursor-pointer bg-green-700 text-white p-2 rounded w-50" onClick={() => setFilter("all")}>

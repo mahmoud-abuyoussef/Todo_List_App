@@ -8,18 +8,25 @@ interface Task {
   isCompleted: boolean;
 }
 
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  tasks: Task[];
+}
+
 interface TasksContextType {
-  database: Task[];
   tasks: Task[];
   setTasks: (tasks: Task[]) => void;
-  setDatabase: (tasks: []) => void;
   showToast: (message: string) => void;
+  database: User[];
+  setDatabase: (database: User[]) => void;
 }
 
 export const TasksContext = createContext<TasksContextType>({
   tasks: [],
-  database: [],
   setTasks: () => {},
-  setDatabase: () => {},
   showToast: () => {},
+  database: [],
+  setDatabase: () => {},
 });
