@@ -1,9 +1,9 @@
-import Task from "./Task";
-import TaskForm from "./TaskForm";
+import Task from "../Task";
+import TaskForm from "../TaskForm";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import { TasksContext } from "../context/tasksContext";
+import { TasksContext } from "../../context/tasksContext";
 
 interface Task {
   id: string;

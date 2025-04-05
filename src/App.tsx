@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Home from "./components/Home";
+import Home from "./components/pages/Home";
 import Login from "./components/auth/Login";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/pages/NotFound";
 import SignUp from "./components/auth/SignUp";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/layouts/Header";
