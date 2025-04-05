@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { useContext, useState } from "react";
-import { TasksContext } from "../context/tasksContext";
+import { TasksContext } from "../../context/tasksContext";
 import { toast } from "react-toastify";
 
 interface TaskForm {

@@ -5,7 +5,7 @@ import { FaTrashCan } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import UpdateTaskModal from "./UpdateTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal";
-import { TasksContext } from "../context/tasksContext";
+import { TasksContext } from "../../context/tasksContext";
 
 interface Task {
   id: string;

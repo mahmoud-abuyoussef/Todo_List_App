@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { toast } from "react-toastify";
-import { TasksContext } from "../context/tasksContext";
+import { TasksContext } from "../../context/tasksContext";
 
 interface Task {
   id: string;
