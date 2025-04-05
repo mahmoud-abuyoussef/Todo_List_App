@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { FaCheck } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { FaTrashCan } from "react-icons/fa6";
@@ -5,7 +6,6 @@ import { useContext, useState } from "react";
 import UpdateTaskModal from "./UpdateTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal";
 import { TasksContext } from "../context/tasksContext";
-import { toast } from "react-toastify";
 
 interface Task {
   id: string;
