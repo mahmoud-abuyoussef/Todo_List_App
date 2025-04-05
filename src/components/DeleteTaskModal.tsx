@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import { TasksContext } from "../context/tasksContext";
 
 interface Task {
@@ -9,7 +10,7 @@ interface Task {
   isCompleted: boolean;
 }
 export default function DeleteTaskModal({ taskId, setIsDeleteOpen }: { taskId: string; setIsDeleteOpen: (isDeleteOpen: boolean) => void }) {
-  const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
+  const { tasks, setTasks, database, setDatabase } = useContext(TasksContext);
 
   function handelDeleteTask(taskId: string) {
     const updatedTasks = tasks.filter((task: Task) => task.id !== taskId);
@@ -26,7 +27,7 @@ export default function DeleteTaskModal({ taskId, setIsDeleteOpen }: { taskId: s
 
     localStorage.setItem("database", JSON.stringify(updatedDatabase));
 
-    showToast("Task Delete Success");
+    toast.success("Task Delete Success");
   }
 
   return (

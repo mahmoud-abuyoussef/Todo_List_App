@@ -48,44 +48,55 @@ export default function Home({ database, setDatabase }: { database: User[]; setD
 
   let tasksRenderd = tasks;
 
-  function showToast(message: string) {
-    return toast.success(`${message}`);
-  }
-
   switch (filter) {
     case "completed":
       tasksRenderd = completedTasks;
-      showToast("Get Tasks completed Success");
       break;
     case "non-completed":
       tasksRenderd = nonCompletedTasks;
-      showToast("Get Tasks non-completed Success");
       break;
     default:
       tasksRenderd = tasks;
-      showToast("Get All Tasks Success");
   }
 
   return (
-    <TasksContext.Provider value={{ tasks, setTasks, database, setDatabase, showToast }}>
+    <TasksContext.Provider value={{ tasks, setTasks, database, setDatabase }}>
       <TaskForm />
 
       <div className="container flex justify-center gap-5 mt-5 m-auto">
-        <button className="cursor-pointer bg-green-700 text-white p-2 rounded w-50" onClick={() => setFilter("all")}>
+        <button
+          className="cursor-pointer bg-green-700 text-white p-2 rounded w-50"
+          onClick={() => {
+            setFilter("all");
+            toast.success("Get All Tasks Success");
+          }}
+        >
           All
         </button>
 
-        <button className="cursor-pointer bg-green-700 text-white p-2 rounded w-50" onClick={() => setFilter("completed")}>
+        <button
+          className="cursor-pointer bg-green-700 text-white p-2 rounded w-50"
+          onClick={() => {
+            setFilter("completed");
+            toast.success("Get Tasks completed Success");
+          }}
+        >
           Completed
         </button>
 
-        <button className="cursor-pointer bg-green-700 text-white p-2 rounded w-50" onClick={() => setFilter("non-completed")}>
+        <button
+          className="cursor-pointer bg-green-700 text-white p-2 rounded w-50"
+          onClick={() => {
+            setFilter("non-completed");
+            toast.success("Get Tasks non-completed Success");
+          }}
+        >
           Not Completed
         </button>
       </div>
 
       <div className="p-5 container m-auto">
-        {tasksRenderd?.map((task: { id: string; title: string; description: string; isCompleted: boolean; dateAndTime: string }) => {
+        {tasksRenderd?.map((task: Task) => {
           return <Task key={task.id} task={task} />;
         })}
       </div>

@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { TasksContext } from "../context/tasksContext";
+import { toast } from "react-toastify";
 
 interface TaskForm {
   title: string;
@@ -15,7 +16,7 @@ interface Task {
 }
 
 export default function UpdateTaskModal({ task, setIsOpen }: { task: Task; setIsOpen: (isOpen: boolean) => void }) {
-  const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
+  const { tasks, setTasks, database, setDatabase } = useContext(TasksContext);
 
   const [formInputs, setFormInputs] = useState<TaskForm>({ title: task.title, description: task.description });
 
@@ -42,7 +43,7 @@ export default function UpdateTaskModal({ task, setIsOpen }: { task: Task; setIs
 
     localStorage.setItem("database", JSON.stringify(updatedDatabase));
 
-    showToast("Task Updated Success");
+    toast.success("Task Updated Success");
 
     setIsOpen(false);
   }

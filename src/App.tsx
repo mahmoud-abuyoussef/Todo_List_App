@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import Login from "./components/auth/Login";
 import NotFound from "./components/NotFound";
 import SignUp from "./components/auth/SignUp";
+import { ToastContainer } from "react-toastify";
 import Header from "./components/layouts/Header";
 import { BrowserRouter, Route, Routes } from "react-router";
 
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer />
       <BrowserRouter>
         <Header />
         <Routes>

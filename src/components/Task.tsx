@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import UpdateTaskModal from "./UpdateTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal";
 import { TasksContext } from "../context/tasksContext";
+import { toast } from "react-toastify";
 
 interface Task {
   id: string;
@@ -15,7 +16,7 @@ interface Task {
 }
 
 export default function Task({ task }: { task: Task }) {
-  const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
+  const { tasks, setTasks, database, setDatabase } = useContext(TasksContext);
 
   function handelCheckCompleteTask(id: string) {
     const updatedTasks = tasks.map((task: Task) => {
@@ -39,9 +40,9 @@ export default function Task({ task }: { task: Task }) {
     localStorage.setItem("database", JSON.stringify(updatedDatabase));
 
     if (task.isCompleted) {
-      showToast("Task Complete");
+      toast.success("Task Complete Check");
     } else {
-      showToast("Task Uncomplete");
+      toast.warn("Task Uncomplete Check");
     }
   }
 

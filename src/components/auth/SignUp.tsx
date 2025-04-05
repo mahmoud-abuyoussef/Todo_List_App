@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router";
 
 interface Task {
@@ -48,6 +49,8 @@ export default function SignUp({ database, setDatabase }: { database: User[]; se
       setDatabase(newUser);
 
       navigate("/login");
+
+      toast.success("User Created Successfully");
     }
   }
 
