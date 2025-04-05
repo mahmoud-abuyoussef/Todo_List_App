@@ -31,14 +31,8 @@ export default function Home({ database, setDatabase }: { database: User[]; setD
     }
   }, [navigate]);
 
-  const [tasks, setTasks] = useState<Task[]>([]);
-  useEffect(() => {
-    database.map((user) => {
-      if (user.id === localStorage.getItem("userId")) {
-        setTasks(user.tasks);
-      }
-    });
-  }, [database]);
+  const userTasks = database.find((user) => user.id === localStorage.getItem("userId"));
+  const [tasks, setTasks] = useState<Task[]>(userTasks?.tasks || []);
 
   const [filter, setFilter] = useState("");
 
