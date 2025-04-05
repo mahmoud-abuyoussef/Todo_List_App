@@ -2,13 +2,22 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useNavigate } from "react-router";
 
-export default function SignUp({
-  database,
-  setDatabase,
-}: {
-  database: [{ id: string; email: string; password: string; tasks: never[] }];
-  setDatabase: (newDatabase: { id: string; email: string; password: string; tasks: never[] }[]) => void;
-}) {
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dateAndTime: string;
+  isCompleted: boolean;
+}
+
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  tasks: Task[];
+}
+
+export default function SignUp({ database, setDatabase }: { database: User[]; setDatabase: (newDatabase: User[]) => void }) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -17,7 +26,7 @@ export default function SignUp({
   });
 
   function signUp() {
-    const isUserExist = database.some((user: { id: string; email: string; password: string; tasks: never[] }) => {
+    const isUserExist = database.some((user: User) => {
       if (user.email === formData.email) {
         return true;
       }

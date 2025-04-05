@@ -6,13 +6,21 @@ interface TaskForm {
   description: string;
 }
 
-export default function UpdateTaskModal({ task, setIsOpen }: { task: { id: string; title: string; description: string }; setIsOpen: (isOpen: boolean) => void }) {
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dateAndTime: string;
+  isCompleted: boolean;
+}
+
+export default function UpdateTaskModal({ task, setIsOpen }: { task: Task; setIsOpen: (isOpen: boolean) => void }) {
   const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
 
   const [formInputs, setFormInputs] = useState<TaskForm>({ title: task.title, description: task.description });
 
   function handelUpdateTask(id: string) {
-    const updatedTasks = tasks.filter((task: { id: string; title: string; description: string; isCompleted: boolean; dateAndTime: string }) => {
+    const updatedTasks = tasks.filter((task: Task) => {
       if (task.id === id) {
         task.title = formInputs.title;
         task.description = formInputs.description;

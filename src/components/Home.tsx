@@ -13,13 +13,14 @@ interface Task {
   isCompleted: boolean;
 }
 
-export default function Home({
-  database,
-  setDatabase,
-}: {
-  database: { id: string; email: string; password: string; tasks: Task[] }[];
-  setDatabase: (newDatabase: { id: string; email: string; password: string; tasks: Task[] }[]) => void;
-}) {
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  tasks: Task[];
+}
+
+export default function Home({ database, setDatabase }: { database: User[]; setDatabase: (newDatabase: User[]) => void }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +32,6 @@ export default function Home({
   }, [navigate]);
 
   const [tasks, setTasks] = useState<Task[]>([]);
-
   useEffect(() => {
     database.map((user) => {
       if (user.id === localStorage.getItem("userId")) {

@@ -18,7 +18,7 @@ export default function Task({ task }: { task: Task }) {
   const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
 
   function handelCheckCompleteTask(id: string) {
-    const updatedTasks = tasks.map((task: { id: string; title: string; description: string; isCompleted: boolean; dateAndTime: string }) => {
+    const updatedTasks = tasks.map((task: Task) => {
       if (task.id === id) {
         task.isCompleted = !task.isCompleted;
       }

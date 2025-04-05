@@ -1,6 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dateAndTime: string;
+  isCompleted: boolean;
+}
+
+interface User {
+  id: string;
+  email: string;
+  password: string;
+  tasks: Task[];
+}
 export default function Login() {
   const navigate = useNavigate();
 
@@ -13,7 +27,7 @@ export default function Login() {
     if (formData.email !== "" && formData.password !== "" && formData.password.length >= 8) {
       const database = JSON.parse(localStorage.getItem("database") || "[]");
 
-      database.filter((user: { id: string; email: string; password: string; tasks: [] }) => {
+      database.filter((user: User) => {
         if (user.email === formData.email && user.password === formData.password) {
           localStorage.setItem("userId", user.id);
         }

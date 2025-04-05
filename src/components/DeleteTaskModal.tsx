@@ -1,11 +1,18 @@
 import { useContext } from "react";
 import { TasksContext } from "../context/tasksContext";
 
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dateAndTime: string;
+  isCompleted: boolean;
+}
 export default function DeleteTaskModal({ taskId, setIsDeleteOpen }: { taskId: string; setIsDeleteOpen: (isDeleteOpen: boolean) => void }) {
   const { tasks, setTasks, showToast, database, setDatabase } = useContext(TasksContext);
 
   function handelDeleteTask(taskId: string) {
-    const updatedTasks = tasks.filter((task: { id: string; title: string; description: string; isCompleted: boolean; dateAndTime: string }) => task.id !== taskId);
+    const updatedTasks = tasks.filter((task: Task) => task.id !== taskId);
     setTasks(updatedTasks);
 
     const updatedDatabase = database.map((user) => {
